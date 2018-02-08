@@ -181,10 +181,12 @@ let calc_option f x y =
 Exercise 8: Now rewrite min_option and max_option using the higher-order
 function calc_option. Call them min_option_2 and max_option_2.
 ......................................................................*)
-  
+
+(*
 let min_option_2 = calc_option min a b ;;
      
 let max_option_2 = calc_option max a b ;;
+*)
 
 (*......................................................................
 Exercise 9: Now that we have calc_option, we can use it in other
@@ -214,8 +216,10 @@ type of the result? Did you provide full typing information in the
 first line of the definition?
 ......................................................................*)
 
-let zip_exn =
-  fun _ -> failwith "zip_exn not implemented" ;;
+let rec zip_exn (x : 'a list) (y : 'b list) : ('a * 'b) list =  
+  match x, y with
+  | [], [] -> []
+  | xhd :: xtl, yhd :: ytl -> (xhd, yhd) :: (zip_exn xtl ytl) ;;
 
 (*......................................................................
 Exercise 11: Another problem with the implementation of zip_exn is that,
