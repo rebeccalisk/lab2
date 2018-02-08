@@ -44,9 +44,9 @@ To think about before you start coding:
 Now implement the two functions curry and uncurry.
 ......................................................................*)
 
-let curry = fun _ -> failwith "curry not implemented" ;;
+let curry f x y = f (x, y) ;;
      
-let uncurry = fun _ -> failwith "uncurry not implemented" ;;
+let uncurry f (x, y) = f x y ;;
 
 (*......................................................................
 Exercise 2: OCaml's built in binary operators, like ( + ) and ( * ) are
@@ -61,11 +61,10 @@ Using your uncurry function, define uncurried plus and times
 functions.
 ......................................................................*)
 
-let plus =
-  fun _ -> failwith "plus not implemented"
+let plus = uncurry ( + ) ;;
+
      
-let times =
-  fun _ -> failwith "times not implemented" ;;
+let times = uncurry ( * ) ;;
   
 (*......................................................................
 Exercise 3: Recall the prods function from Lab 1:
@@ -79,8 +78,7 @@ Now reimplement prods using map and your uncurried times function. Why
 do you need the uncurried times function?
 ......................................................................*)
 
-let prods =
-  fun _ -> failwith "prods not implemented" ;; 
+let prods = List.map times ;; 
 
 (*======================================================================
 Part 2: Option types
@@ -113,8 +111,11 @@ Reimplement max_list, but this time, it should return an int option
 instead of an int.
 ......................................................................*)
 
-let max_list (lst : int list) : int option =
-  failwith "max_list not implemented" ;;
+let rec max_list (lst : int list) : int option =
+  match lst with 
+  | [] -> None
+  | [h] -> Some h  
+  | h::t -> Some h ;;
   
 (*......................................................................
 Exercise 5: Write a function to return the smaller of two int options,
