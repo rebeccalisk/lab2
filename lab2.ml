@@ -115,8 +115,13 @@ let rec max_list (lst : int list) : int option =
   match lst with 
   | [] -> None
   | [h] -> Some h  
-  | h::t -> Some h ;;
+  | h::t -> 
+    match max_list t with 
+    | None -> Some h
+    | Some x -> Some (max x h)
+;;
   
+
 (*......................................................................
 Exercise 5: Write a function to return the smaller of two int options,
 or None if both are None. If exactly one argument is None, return the
@@ -125,7 +130,12 @@ useful.
 ......................................................................*)
 
 let min_option (x : int option) (y : int option) : int option =
-  failwith "min_option not implemented" ;;
+  match x, y with 
+  | None, None -> None
+  | Some a, None -> Some a
+  | None, Some b -> Some b
+  | Some a, Some b -> if a > b then Some b else Some a ;;
+
      
 (*......................................................................
 Exercise 6: Write a function to return the larger of two int options, or
