@@ -188,6 +188,10 @@ let min_option_2 = calc_option min a b ;;
 let max_option_2 = calc_option max a b ;;
 *)
 
+let min_option_2 = fun _ -> failwith "min_option not implemented" ;;
+
+let max_option_2 = fun _ -> failwith "max_option not implemented" ;;
+
 (*......................................................................
 Exercise 9: Now that we have calc_option, we can use it in other
 ways. Because calc_option is polymorphic, it can work on things other
