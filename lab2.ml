@@ -132,9 +132,9 @@ useful.
 let min_option (x : int option) (y : int option) : int option =
   match x, y with 
   | None, None -> None
-  | Some a, None -> Some a
-  | None, Some b -> Some b
-  | Some a, Some b -> if a > b then Some b else Some a ;;
+  | a, None -> a
+  | None, b -> b
+  | a, b -> min a b ;;
 
      
 (*......................................................................
@@ -144,8 +144,13 @@ other.
 ......................................................................*)
 
 let max_option (x : int option) (y : int option) : int option =
-  failwith "max_option not implemented" ;;
+  match x, y with 
+  | None, None -> None
+  | a, None -> a
+  | None, b -> b
+  | a, b -> max a b ;;
 
+     
 (*======================================================================
 Part 3: Polymorphism practice
 
@@ -164,19 +169,22 @@ result appropriately returned.
 What is calc_option's function signature? Implement calc_option.
 ......................................................................*)
 
-let calc_option =
-  fun _ -> failwith "calc_option not implemented" ;;
+let calc_option f x y =
+  match x, y with
+  | None, None -> None
+  | a, None -> a
+  | None, b -> b
+  | a, b -> f a b  
+;;
      
 (*......................................................................
 Exercise 8: Now rewrite min_option and max_option using the higher-order
 function calc_option. Call them min_option_2 and max_option_2.
 ......................................................................*)
   
-let min_option_2 =
-  fun _ -> failwith "min_option_2 not implemented" ;;
+let min_option_2 = calc_option min a b ;;
      
-let max_option_2 =
-  fun _ -> failwith "max_option_2 not implemented" ;;
+let max_option_2 = calc_option max a b ;;
 
 (*......................................................................
 Exercise 9: Now that we have calc_option, we can use it in other
